@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.List;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BeerExpert expert = new BeerExpert();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,14 @@ public class MainActivity extends AppCompatActivity {
         //Get Selected item from spinner - color
         String beerType = String.valueOf(color.getSelectedItem());
 
-        //Display Selected Item
-        brands.setText(beerType);
+        //Get list of beers depending on the value of beerType
+        List<String> brandList = expert.getBrands(beerType);
+        StringBuilder brandsFormatted = new StringBuilder();
+
+        for (String brand:brandList){
+            brandsFormatted.append(brand).append('\n');
+        }
+
+        brands.setText(brandsFormatted);
     }
 }
